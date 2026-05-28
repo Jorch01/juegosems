@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!--
+==========================================
+  MIS ÚTILES ESCOLARES — Juego educativo
+==========================================
+CÓMO SUBIR A GITHUB PAGES (paso a paso):
+
+1. Ve a https://github.com e inicia sesión
+   (o crea una cuenta gratis si no tienes).
+
+2. Clic en el botón verde "New" para crear
+   un repositorio nuevo.
+   - Nombre sugerido: juegos-escolares
+   - Marca "Public"
+   - Clic en "Create repository"
+
+3. En la página del repo nuevo, haz clic en
+   "uploading an existing file" y sube este
+   archivo como "index.html". Luego clic en
+   "Commit changes".
+
+4. Ve a Settings (menú del repo) → Pages.
+
+5. En "Source" elige "Deploy from a branch".
+   Selecciona la rama "main" y carpeta "/(root)".
+   Clic en "Save".
+
+6. Espera ~2 minutos. Tu juego estará en:
+   https://TU-USUARIO.github.io/juegos-escolares/
+
+PROBAR LOCALMENTE:
+  - Abre este archivo directamente en Chrome,
+    Firefox o Edge arrastrándolo al navegador.
+  - La voz funciona mejor en Chrome.
+==========================================
+-->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mis Útiles Escolares 🎒</title>
+<style>
+/* ---- Reset y base ---- */
+*{box-sizing:border-box;margin:0;padding:0;}
+
+body{
+  font-family:'Segoe UI','Arial Rounded MT Bold',Arial,sans-serif;
+  background:linear-gradient(135deg,#FFE0F0 0%,#E0F4FF 50%,#FFFDE0 100%);
+  min-height:100vh;
+  display:flex;
+  align-items:flex-start;
+  justify-content:center;
+  padding:12px 8px 40px;
+}
+
+/* ---- Pantallas ---- */
+.screen{
+  display:none;
+  width:100%;
+  max-width:820px;
+  background:#fff;
+  border-radius:30px;
+  padding:28px 22px 32px;
+  box-shadow:0 10px 40px rgba(0,0,0,.15);
+  text-align:center;
+  animation:fadeIn .35s ease;
+}
+.screen.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
+
+/* ---- Tipografía ---- */
+h1{font-size:clamp(2rem,6vw,3.4rem);color:#FF6B6B;text-shadow:2px 2px 0 #FFD93D;margin-bottom:6px;}
+h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#6C63FF;margin-bottom:16px;}
+.subtitle{font-size:clamp(1rem,2.8vw,1.3rem);color:#666;margin-bottom:16px;}
+
+/* ---- Botones genéricos ---- */
+.btn{
+  display:inline-block;padding:14px 28px;margin:7px;
+  border:none;border-radius:50px;
+  font-size:clamp(1rem,2.8vw,1.5rem);font-weight:700;
+  cursor:pointer;transition:transform .18s,box-shadow .18s;
+  touch-action:manipulation;min-width:110px;
+}
+.btn:hover,.btn:active{transform:scale(1.08);box-shadow:0 6px 18px rgba(0,0,0,.22);}
+.btn-green {background:#5DB85D;color:#fff;}
+.btn-blue  {background:#4D96FF;color:#fff;}
+.btn-orange{background:#FF9800;color:#fff;}
+.btn-gray  {background:#95A5A6;color:#fff;}
+.btn-sound {background:#FFD93D;color:#333;font-size:clamp(1.1rem,3vw,1.7rem);}
+
+/* ---- Menú principal ---- */
+.menu-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+  gap:14px;margin:20px 0;
+}
+.menu-card{
+  border-radius:22px;padding:18px 14px;
+  cursor:pointer;transition:transform .22s,box-shadow .22s;
+  color:#fff;font-weight:700;
+  font-size:clamp(.95rem,2.4vw,1.25rem);
+  border:none;line-height:1.4;
+}
+.menu-card:nth-child(1){background:linear-gradient(135deg,#f093fb,#f5576c);}
+.menu-card:nth-child(2){background:linear-gradient(135deg,#4facfe,#00c6ff);}
+.menu-card:nth-child(3){background:linear-gradient(135deg,#43e97b,#38f9d7);}
+.menu-card:nth-child(4){background:linear-gradient(135deg,#fa709a,#fee140);}
+.menu-card:nth-child(5){background:linear-gradient(135deg,#a18cd1,#fbc2eb);}
+.menu-card:hover,.menu-card:active{transform:scale(1.06);box-shadow:0 8px 24px rgba(0,0,0,.22);}
+.menu-card .card-emoji{font-size:2.8rem;display:block;margin-bottom:7px;}
+
+/* ---- Estrellas ---- */
+.stars-bar{font-size:clamp(1.1rem,2.8vw,1.6rem);margin:8px 0;color:#F0A500;}
+
+/* ---- Palabra / emoji grandes ---- */
+.big-emoji{
+  font-size:clamp(4.5rem,18vw,9rem);display:block;
+  margin:8px auto;animation:bounce .9s ease-in-out infinite alternate;
+}
+@keyframes bounce{from{transform:translateY(0);}to{transform:translateY(-12px);}}
+.big-word{font-size:clamp(2.8rem,9vw,5.5rem);font-weight:900;color:#2C3E50;margin:6px 0;}
+
+/* ---- Navegación (modo 1 y 3) ---- */
+.nav-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap;}
+.progress-dots{display:flex;gap:9px;justify-content:center;margin:10px 0;}
+.dot{width:16px;height:16px;border-radius:50%;background:#DDD;transition:background .3s;}
+.dot.active{background:#5DB85D;}
+.dot.visited{background:#FFD93D;}
+
+/* ---- Barra de progreso ---- */
+.bar-wrap{width:100%;background:#EEE;border-radius:10px;height:13px;margin:6px 0 14px;overflow:hidden;}
+.bar-fill{height:100%;background:linear-gradient(90deg,#6BCB77,#FFD93D);border-radius:10px;transition:width .4s;}
+
+/* ---- Modo 2 opciones ---- */
+.options-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:14px 0;}
+.opt-btn{
+  background:#F0F4FF;border:4px solid #CCD6FF;border-radius:20px;
+  padding:14px 8px;font-size:clamp(1.1rem,3.2vw,1.7rem);font-weight:700;
+  cursor:pointer;transition:background .18s,transform .18s;color:#2C3E50;
+  line-height:1.35;
+}
+.opt-btn:hover,.opt-btn:active{background:#CCD6FF;transform:scale(1.05);}
+.opt-btn.correct{background:#ADFFC0;border-color:#27AE60;animation:celebrate .45s;}
+.opt-btn.wrong  {background:#FFD0D0;border-color:#E74C3C;animation:shake .4s;}
+@keyframes celebrate{0%,100%{transform:scale(1);}50%{transform:scale(1.13);}}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-9px);}75%{transform:translateX(9px);}}
+
+/* ---- Modo 3 frase ---- */
+.phrase-box{
+  font-size:clamp(1.4rem,4.2vw,2.4rem);color:#2C3E50;line-height:1.65;
+  margin:14px 0;padding:18px 20px;
+  background:#F9F9FF;border-radius:18px;border-left:8px solid #6C63FF;
+  text-align:left;
+}
+.phrase-box .hl{background:#FFE066;border-radius:6px;padding:1px 4px;}
+.phrase-box .speaking{background:#FF6B6B;color:#fff;border-radius:6px;padding:1px 4px;}
+
+/* ---- Modo 4 memoria ---- */
+.memory-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:9px;margin:12px 0;
+}
+@media(max-width:460px){.memory-grid{grid-template-columns:repeat(4,1fr);}}
+.mc{
+  aspect-ratio:1;border-radius:14px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;transition:all .32s;border:3px solid transparent;
+  background:linear-gradient(135deg,#667eea,#764ba2);color:#fff;
+  user-select:none;overflow:hidden;padding:2px;
+  font-size:clamp(1.4rem,4.5vw,2.2rem);
+}
+.mc.word-card{font-size:clamp(.75rem,2vw,1.05rem);}
+.mc.flipped{background:#fff;border-color:#6C63FF;color:#2C3E50;}
+.mc.matched{background:#ADFFC0;border-color:#27AE60;cursor:default;}
+
+/* ---- Modo 5 párrafo ---- */
+.para-box{
+  font-size:clamp(1.2rem,3.8vw,2rem);color:#2C3E50;line-height:1.85;
+  margin:12px 0;padding:18px 20px;
+  background:#FFFEF0;border-radius:18px;border:3px solid #FFD93D;
+  text-align:left;
+}
+.kw{
+  font-weight:900;color:#C0392B;cursor:pointer;
+  border-bottom:3px dotted #C0392B;transition:background .2s;
+}
+.kw:hover{background:#FFE066;border-radius:4px;}
+.kw.speaking{background:#FF6B6B;color:#fff;border-radius:4px;}
+
+.touch-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:14px 0;}
+.ti{
+  font-size:clamp(2rem,7vw,3.2rem);background:#F0F4FF;
+  border:4px solid #CCD6FF;border-radius:18px;padding:10px 16px;
+  cursor:pointer;transition:transform .18s;line-height:1.2;
+}
+.ti span{display:block;font-size:clamp(.65rem,1.8vw,.9rem);font-weight:700;color:#555;margin-top:3px;}
+.ti:hover,.ti:active{transform:scale(1.14);}
+.ti.touched{background:#ADFFC0;border-color:#27AE60;}
+
+/* ---- Feedback ---- */
+.fb{
+  font-size:clamp(1.1rem,3.2vw,1.7rem);font-weight:700;
+  padding:11px 18px;border-radius:14px;margin:8px 0;display:none;
+}
+.fb.show{display:block;animation:fadeIn .28s;}
+.fb.good{background:#ADFFC0;color:#1A6B36;}
+.fb.try {background:#FFE0B2;color:#BF5700;}
+
+/* ---- Pantalla fin ---- */
+.stars-won{
+  font-size:clamp(2.5rem,9vw,5rem);color:#FFD700;
+  margin:10px 0;animation:pulse .8s ease-in-out infinite alternate;
+}
+@keyframes pulse{from{transform:scale(1);}to{transform:scale(1.12);}}
+
+/* ---- Responsivo ---- */
+@media(max-width:480px){
+  .screen{padding:18px 10px 24px;border-radius:20px;}
+  .nav-row{justify-content:center;}
+  .options-grid{gap:10px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ========== INICIO ========== -->
+<div id="s-home" class="screen active">
+  <div style="font-size:5rem;">🎒</div>
+  <h1>Mis Útiles<br>Escolares</h1>
+  <p class="subtitle">¡Aprende las palabras de la escuela!</p>
+  <div class="stars-bar" id="total-stars">⭐ 0 estrellas ganadas</div>
+  <div class="menu-grid">
+    <button class="menu-card" onclick="startMode(1)">
+      <span class="card-emoji">🔊</span>
+      <strong>Modo 1</strong><br>Escucha las palabras
+    </button>
+    <button class="menu-card" onclick="startMode(2)">
+      <span class="card-emoji">🎯</span>
+      <strong>Modo 2</strong><br>Encuentra la palabra
+    </button>
+    <button class="menu-card" onclick="startMode(3)">
+      <span class="card-emoji">📖</span>
+      <strong>Modo 3</strong><br>Lee la frase
+    </button>
+    <button class="menu-card" onclick="startMode(4)">
+      <span class="card-emoji">🃏</span>
+      <strong>Modo 4</strong><br>Juego de memoria
+    </button>
+    <button class="menu-card" onclick="startMode(5)">
+      <span class="card-emoji">📜</span>
+      <strong>Modo 5</strong><br>La lectura grande
+    </button>
+  </div>
+</div>
+
+<!-- ========== MODO 1 ========== -->
+<div id="s-1" class="screen">
+  <h2>🔊 Escucha las palabras</h2>
+  <div class="bar-wrap"><div class="bar-fill" id="m1-bar"></div></div>
+  <div class="progress-dots" id="m1-dots"></div>
+  <span class="big-emoji" id="m1-emoji"></span>
+  <div class="big-word" id="m1-word"></div>
+  <br>
+  <button class="btn btn-sound" onclick="m1Speak()">🔊 Escuchar</button>
+  <div class="nav-row">
+    <button class="btn btn-gray" onclick="m1Nav(-1)">⬅️ Anterior</button>
+    <button class="btn btn-green" id="m1-next-btn" onclick="m1Nav(1)">Siguiente ➡️</button>
+  </div>
+  <br>
+  <button class="btn btn-orange" onclick="goHome()">🏠 Menú</button>
+</div>
+
+<!-- ========== MODO 2 ========== -->
+<div id="s-2" class="screen">
+  <h2>🎯 Encuentra la palabra</h2>
+  <div class="stars-bar" id="m2-stars">⭐ 0</div>
+  <p class="subtitle">Escucha y toca la palabra correcta</p>
+  <button class="btn btn-sound" onclick="m2Speak()">🔊 Escuchar de nuevo</button>
+  <div class="options-grid" id="m2-opts"></div>
+  <div class="fb" id="m2-fb"></div>
+  <p style="font-size:1.05rem;color:#999;margin-top:6px;" id="m2-prog"></p>
+  <br>
+  <button class="btn btn-orange" onclick="goHome()">🏠 Menú</button>
+</div>
+
+<!-- ========== MODO 3 ========== -->
+<div id="s-3" class="screen">
+  <h2>📖 Lee la frase</h2>
+  <div class="bar-wrap"><div class="bar-fill" id="m3-bar"></div></div>
+  <div class="phrase-box" id="m3-phrase"></div>
+  <div style="font-size:clamp(2.2rem,9vw,4.5rem);margin:6px 0;" id="m3-emoji"></div>
+  <button class="btn btn-sound" onclick="m3Speak()">🔊 Escuchar frase</button>
+  <div class="nav-row">
+    <button class="btn btn-gray" onclick="m3Nav(-1)">⬅️ Anterior</button>
+    <button class="btn btn-green" id="m3-next-btn" onclick="m3Nav(1)">Siguiente ➡️</button>
+  </div>
+  <br>
+  <button class="btn btn-orange" onclick="goHome()">🏠 Menú</button>
+</div>
+
+<!-- ========== MODO 4 ========== -->
+<div id="s-4" class="screen">
+  <h2>🃏 Juego de memoria</h2>
+  <div class="stars-bar" id="m4-pairs">Parejas: 0 / 5</div>
+  <p class="subtitle">Voltea las cartas y encuentra las parejas</p>
+  <div class="memory-grid" id="m4-grid"></div>
+  <div class="fb" id="m4-fb"></div>
+  <br>
+  <button class="btn btn-orange" onclick="goHome()">🏠 Menú</button>
+</div>
+
+<!-- ========== MODO 5 ========== -->
+<div id="s-5" class="screen">
+  <h2>📜 La lectura grande</h2>
+  <div class="para-box" id="m5-para"></div>
+  <button class="btn btn-sound" onclick="m5Speak()">🔊 Leer en voz alta</button>
+  <div style="margin-top:18px;">
+    <p style="font-size:clamp(1rem,3vw,1.35rem);font-weight:700;color:#555;">
+      ¿Cuántos útiles necesita?<br>¡Tócalos todos! 👆
+    </p>
+    <div class="touch-row" id="m5-items"></div>
+  </div>
+  <div class="fb" id="m5-fb"></div>
+  <br>
+  <button class="btn btn-orange" onclick="goHome()">🏠 Menú</button>
+</div>
+
+<!-- ========== FIN ========== -->
+<div id="s-end" class="screen">
+  <div style="font-size:5rem;">🎉</div>
+  <h1 id="end-title">¡Lo lograste!</h1>
+  <p id="end-msg" style="font-size:clamp(1.1rem,3.2vw,1.6rem);color:#555;margin:10px 0;"></p>
+  <div class="stars-won" id="end-stars"></div>
+  <div class="stars-bar" id="end-total"></div>
+  <br>
+  <button class="btn btn-green" onclick="goHome()">🏠 Volver al menú</button>
+</div>
+
+<script>
+/* =============================================
+   DATOS
+   ============================================= */
+const ITEMS = [
+  { word:'lápiz',    emoji:'✏️',  phrase:'El lápiz es de color gris.' },
+  { word:'plumones', emoji:'🖊️',  phrase:'Los plumones son bonitos.'  },
+  { word:'crayones', emoji:'🖍️',  phrase:'Los crayones son grandes.'  },
+  { word:'libro',    emoji:'📕',  phrase:'El libro es mágico.'         },
+  { word:'cuaderno', emoji:'📓',  phrase:'Mi cuaderno está limpio.'    }
+];
+
+const PARRAFO = 'Para trabajar necesito mi libro, lápiz, crayones, plumones y un cuaderno. ' +
+                'En la escuela tengo todo lo que necesito y ahora sólo falta mi mejor esfuerzo.';
+
+const CHEERS = ['¡Muy bien! 😊','¡Excelente! 🌟','¡Lo lograste! 🏆','¡Fantástico! 🎊','¡Eres increíble! 🦄'];
+
+/* =============================================
+   ESTRELLAS — se guardan en memoria;
+   localStorage es opcional y tolerante a fallos.
+   ============================================= */
+let totalStars = 0;
+try { const s=localStorage.getItem('_ues'); if(s) totalStars=parseInt(s)||0; } catch(e){}
+
+function saveStars(){
+  try { localStorage.setItem('_ues', totalStars); } catch(e){}
+}
+function refreshStarsUI(){
+  document.getElementById('total-stars').textContent = '⭐ ' + totalStars + ' estrellas ganadas';
+}
+refreshStarsUI();
+
+/* =============================================
+   HABLA (Web Speech API)
+   ============================================= */
+let _voice = null;
+function _loadVoices(){
+  const vs = speechSynthesis.getVoices();
+  _voice = vs.find(v=>v.lang==='es-MX') ||
+           vs.find(v=>v.lang==='es-ES') ||
+           vs.find(v=>v.lang.startsWith('es')) || null;
+}
+_loadVoices();
+if(speechSynthesis.onvoiceschanged !== undefined) speechSynthesis.onvoiceschanged = _loadVoices;
+
+function speak(text, onEnd){
+  if(!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang  = 'es-MX';
+  u.rate  = 0.82;
+  u.pitch = 1.1;
+  if(_voice) u.voice = _voice;
+  if(onEnd) u.onend = onEnd;
+  speechSynthesis.speak(u);
+}
+
+/* =============================================
+   NAVEGACIÓN DE PANTALLAS
+   ============================================= */
+function showScreen(id){
+  document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0,0);
+}
+function goHome(){
+  speechSynthesis.cancel();
+  refreshStarsUI();
+  showScreen('s-home');
+}
+function startMode(n){
+  speechSynthesis.cancel();
+  if(n===1) initM1();
+  else if(n===2) initM2();
+  else if(n===3) initM3();
+  else if(n===4) initM4();
+  else if(n===5) initM5();
+  showScreen('s-'+n);
+}
+function showEnd(earned, modeN){
+  const cheer = CHEERS[Math.floor(Math.random()*CHEERS.length)];
+  document.getElementById('end-title').textContent = cheer;
+  document.getElementById('end-msg').textContent   = 'Terminaste el Modo '+modeN+' 🎊';
+  document.getElementById('end-stars').textContent = '⭐'.repeat(Math.max(earned,1));
+  document.getElementById('end-total').textContent = '⭐ Total: '+totalStars+' estrellas';
+  speak(cheer.replace(/[^\w\sáéíóúüñ!¡]/gi,'') + '. Ganaste '+earned+' estrellas.');
+  showScreen('s-end');
+}
+
+/* =============================================
+   UTILIDADES
+   ============================================= */
+function shuffle(a){
+  for(let i=a.length-1;i>0;i--){
+    const j=Math.floor(Math.random()*(i+1));
+    [a[i],a[j]]=[a[j],a[i]];
+  }
+  return a;
+}
+function fb(id,msg,good){
+  const el=document.getElementById(id);
+  el.textContent=msg;
+  el.className='fb show '+(good?'good':'try');
+}
+function hideFb(id){
+  const el=document.getElementById(id);
+  if(el){el.className='fb';el.textContent='';}
+}
+function dots(containerId, current, total){
+  let h='';
+  for(let i=0;i<total;i++){
+    const c = i===current?'active':(i<current?'visited':'');
+    h+=`<div class="dot ${c}"></div>`;
+  }
+  document.getElementById(containerId).innerHTML=h;
+}
+
+/* =============================================
+   MODO 1 — Escucha y conoce las palabras
+   ============================================= */
+let m1i=0, m1done=false;
+
+function initM1(){
+  m1i=0; m1done=false;
+  document.getElementById('m1-next-btn').textContent='Siguiente ➡️';
+  m1Render();
+  setTimeout(()=>m1Speak(),600);
+}
+function m1Render(){
+  const it=ITEMS[m1i];
+  document.getElementById('m1-emoji').textContent=it.emoji;
+  document.getElementById('m1-word').textContent=it.word;
+  document.getElementById('m1-bar').style.width=((m1i+1)/ITEMS.length*100)+'%';
+  dots('m1-dots',m1i,ITEMS.length);
+  // En el último ítem cambiar botón
+  document.getElementById('m1-next-btn').textContent =
+    m1i===ITEMS.length-1 ? '✅ ¡Terminar!' : 'Siguiente ➡️';
+}
+function m1Speak(){ speak(ITEMS[m1i].word); }
+function m1Nav(dir){
+  if(dir===1 && m1i===ITEMS.length-1 && !m1done){
+    m1done=true;
+    totalStars+=2; saveStars();
+    setTimeout(()=>showEnd(2,1),400);
+    return;
+  }
+  m1i=Math.max(0,Math.min(ITEMS.length-1, m1i+dir));
+  m1Render();
+  setTimeout(()=>m1Speak(),400);
+}
+
+/* =============================================
+   MODO 2 — Encuentra la palabra
+   ============================================= */
+let m2q=[], m2qi=0, m2pts=0, m2busy=false;
+
+function initM2(){
+  m2q=shuffle([...Array(ITEMS.length).keys()]);
+  m2qi=0; m2pts=0; m2busy=false;
+  document.getElementById('m2-stars').textContent='⭐ 0';
+  m2Render();
+}
+function m2Render(){
+  if(m2qi>=m2q.length){
+    totalStars+=m2pts; saveStars();
+    showEnd(m2pts,2); return;
+  }
+  hideFb('m2-fb');
+  const correct=m2q[m2qi];
+  // 3 distractores únicos
+  const others=shuffle(ITEMS.map((_,i)=>i).filter(i=>i!==correct)).slice(0,3);
+  const opts=shuffle([correct,...others]);
+  let h='';
+  opts.forEach(idx=>{
+    h+=`<button class="opt-btn" onclick="m2Check(${idx},${correct},this)">
+      <div>${ITEMS[idx].emoji}</div>
+      <div>${ITEMS[idx].word}</div>
+    </button>`;
+  });
+  document.getElementById('m2-opts').innerHTML=h;
+  document.getElementById('m2-prog').textContent='Palabra '+(m2qi+1)+' de '+m2q.length;
+  setTimeout(()=>m2Speak(),450);
+}
+function m2Speak(){
+  speak('¿Dónde dice '+ITEMS[m2q[m2qi]].word+'? Encuéntralo.');
+}
+function m2Check(chosen,correct,btn){
+  if(m2busy) return;
+  if(chosen===correct){
+    m2busy=true;
+    btn.classList.add('correct');
+    m2pts++;
+    document.getElementById('m2-stars').textContent='⭐ '+m2pts;
+    fb('m2-fb','¡Muy bien! '+ITEMS[correct].emoji,true);
+    speak('¡Muy bien! '+ITEMS[correct].word);
+    setTimeout(()=>{ m2busy=false; m2qi++; m2Render(); },1800);
+  } else {
+    btn.classList.add('wrong');
+    fb('m2-fb','¡Inténtalo otra vez! 💪',false);
+    speak('Inténtalo otra vez.');
+    setTimeout(()=>btn.classList.remove('wrong'),800);
+  }
+}
+
+/* =============================================
+   MODO 3 — Lee la frase
+   ============================================= */
+let m3i=0, m3done=false;
+
+function initM3(){
+  m3i=0; m3done=false;
+  document.getElementById('m3-next-btn').textContent='Siguiente ➡️';
+  m3Render();
+  setTimeout(()=>m3Speak(),600);
+}
+function m3Render(){
+  const it=ITEMS[m3i];
+  document.getElementById('m3-emoji').textContent=it.emoji;
+  // Resaltar palabra clave en la frase (sin distinguir mayúsculas)
+  const hl=it.phrase.replace(
+    new RegExp('('+it.word+')','gi'),
+    '<span class="hl">$1</span>'
+  );
+  document.getElementById('m3-phrase').innerHTML=hl;
+  document.getElementById('m3-bar').style.width=((m3i+1)/ITEMS.length*100)+'%';
+  document.getElementById('m3-next-btn').textContent =
+    m3i===ITEMS.length-1 ? '✅ ¡Terminar!' : 'Siguiente ➡️';
+}
+function m3Speak(){ speak(ITEMS[m3i].phrase); }
+function m3Nav(dir){
+  if(dir===1 && m3i===ITEMS.length-1 && !m3done){
+    m3done=true;
+    totalStars+=3; saveStars();
+    setTimeout(()=>showEnd(3,3),400);
+    return;
+  }
+  m3i=Math.max(0,Math.min(ITEMS.length-1, m3i+dir));
+  m3Render();
+  setTimeout(()=>m3Speak(),400);
+}
+
+/* =============================================
+   MODO 4 — Juego de memoria / parejas
+   ============================================= */
+let m4cards=[], m4flipped=[], m4matched=0, m4lock=false;
+
+function initM4(){
+  m4matched=0; m4flipped=[]; m4lock=false;
+  hideFb('m4-fb');
+  document.getElementById('m4-pairs').textContent='Parejas: 0 / 5';
+  // 10 cartas: 5 emoji + 5 palabras
+  const deck=[];
+  ITEMS.forEach((it,i)=>{
+    deck.push({id:i, type:'emoji', val:it.emoji});
+    deck.push({id:i, type:'word',  val:it.word });
+  });
+  m4cards=shuffle(deck);
+  let h='';
+  m4cards.forEach((_,idx)=>{
+    h+=`<div class="mc" id="mc${idx}" onclick="m4Flip(${idx})">❓</div>`;
+  });
+  document.getElementById('m4-grid').innerHTML=h;
+}
+function m4Flip(idx){
+  if(m4lock) return;
+  const el=document.getElementById('mc'+idx);
+  if(el.classList.contains('flipped')||el.classList.contains('matched')) return;
+  const card=m4cards[idx];
+  el.classList.add('flipped');
+  if(card.type==='word') el.classList.add('word-card');
+  el.textContent=card.val;
+  m4flipped.push(idx);
+  if(m4flipped.length===2){
+    m4lock=true;
+    const [a,b]=m4flipped;
+    const ca=m4cards[a], cb=m4cards[b];
+    if(ca.id===cb.id && ca.type!==cb.type){
+      // ¡Pareja!
+      setTimeout(()=>{
+        document.getElementById('mc'+a).classList.add('matched');
+        document.getElementById('mc'+b).classList.add('matched');
+        m4matched++;
+        document.getElementById('m4-pairs').textContent='Parejas: '+m4matched+' / 5';
+        speak(ITEMS[ca.id].word);
+        fb('m4-fb','¡Pareja encontrada! ⭐',true);
+        m4flipped=[];
+        m4lock=false;
+        if(m4matched===5){
+          totalStars+=5; saveStars();
+          setTimeout(()=>showEnd(5,4),1600);
+        }
+      },550);
+    } else {
+      setTimeout(()=>{
+        const ea=document.getElementById('mc'+a);
+        const eb=document.getElementById('mc'+b);
+        ea.classList.remove('flipped','word-card');
+        eb.classList.remove('flipped','word-card');
+        ea.textContent='❓'; eb.textContent='❓';
+        fb('m4-fb','¡Sigue buscando! 💪',false);
+        m4flipped=[]; m4lock=false;
+      },900);
+    }
+  }
+}
+
+/* =============================================
+   MODO 5 — La lectura grande
+   ============================================= */
+let m5touched=new Set();
+
+function initM5(){
+  m5touched=new Set();
+  hideFb('m5-fb');
+  // Párrafo con palabras clave clicables
+  const kws=['libro','lápiz','crayones','plumones','cuaderno'];
+  let html=PARRAFO;
+  kws.forEach(kw=>{
+    html=html.replace(
+      new RegExp('('+kw+')','gi'),
+      `<span class="kw" onclick="speak('${kw}')">$1</span>`
+    );
+  });
+  document.getElementById('m5-para').innerHTML=html;
+  // Ítems tocables
+  let ih='';
+  ITEMS.forEach((it,i)=>{
+    ih+=`<div class="ti" id="ti${i}" onclick="m5Touch(${i})">
+      ${it.emoji}<span>${it.word}</span>
+    </div>`;
+  });
+  document.getElementById('m5-items').innerHTML=ih;
+}
+function m5Speak(){
+  speak(PARRAFO, ()=>{
+    fb('m5-fb','¡Ahora toca los útiles de abajo! 👆',true);
+  });
+}
+function m5Touch(idx){
+  const el=document.getElementById('ti'+idx);
+  if(!m5touched.has(idx)){
+    el.classList.add('touched');
+    m5touched.add(idx);
+    speak(ITEMS[idx].word);
+  }
+  if(m5touched.size===ITEMS.length){
+    setTimeout(()=>{
+      totalStars+=4; saveStars();
+      speak('¡Excelente! Encontraste todos los útiles.');
+      fb('m5-fb','¡Encontraste todos! 🎉⭐⭐⭐⭐',true);
+      setTimeout(()=>showEnd(4,5),2800);
+    },500);
+  }
+}
+</script>
+</body>
+</html>
