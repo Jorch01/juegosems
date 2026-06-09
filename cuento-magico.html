@@ -3,40 +3,47 @@
 <head>
 <!--
 ==========================================
-  MI RUTINA DE LA MAÑANA — Juego educativo
+  EL CUENTO MÁGICO — Juego educativo
 ==========================================
-Segundo juego para practicar lectura (niño de 5 años).
-Contenido tomado de las fichas: despertar, levantar,
-bañar, vestir, salir + sus frases y el párrafo.
+Tercer juego de la serie. Contenido: personajes
+de cuento (princesa, duende, hada, bruja, superhéroe).
 
 CÓMO SUBIRLO A GITHUB PAGES:
-  - Sube este archivo "mi-rutina.html" al mismo
-    repositorio donde está "index.html".
+  - Sube este archivo al mismo repositorio donde
+    están index.html y mi-rutina.html.
   - Con GitHub Pages ya activado, estará en:
-    https://TU-USUARIO.github.io/TU-REPO/mi-rutina.html
+    https://TU-USUARIO.github.io/TU-REPO/cuento-magico.html
 
 PROBAR LOCALMENTE:
-  - Abre este archivo directamente en Chrome o Edge
-    (doble clic o arrástralo al navegador).
+  - Abre directamente en Chrome o Edge.
   - La voz funciona mejor en Chrome.
 ==========================================
 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi Rutina de la Mañana ☀️</title>
+<title>El Cuento Mágico ✨</title>
 <style>
 /* ---- Reset y base ---- */
 *{box-sizing:border-box;margin:0;padding:0;}
 
 body{
   font-family:'Segoe UI','Arial Rounded MT Bold',Arial,sans-serif;
-  /* Tema "amanecer" para diferenciarlo del otro juego */
-  background:linear-gradient(135deg,#FFF3C4 0%,#FFD1A1 45%,#A1D2FF 100%);
+  /* Tema "noche mágica / cuento" */
+  background:linear-gradient(135deg,#2D1B69 0%,#6A3093 45%,#1A1A2E 100%);
   min-height:100vh;
   display:flex;
   align-items:flex-start;
   justify-content:center;
   padding:12px 8px 40px;
+}
+
+/* Estrellas decorativas fijas */
+body::before{
+  content:'✨ ⭐ 🌟 ✨ ⭐ 🌟 ✨ ⭐ 🌟 ✨ ⭐ 🌟';
+  position:fixed;top:4px;left:0;width:100%;
+  font-size:1rem;letter-spacing:10px;
+  opacity:.35;pointer-events:none;
+  white-space:nowrap;overflow:hidden;
 }
 
 /* ---- Pantallas ---- */
@@ -47,7 +54,7 @@ body{
   background:#fff;
   border-radius:30px;
   padding:28px 22px 32px;
-  box-shadow:0 10px 40px rgba(0,0,0,.15);
+  box-shadow:0 0 60px rgba(160,80,255,.35),0 10px 40px rgba(0,0,0,.4);
   text-align:center;
   animation:fadeIn .35s ease;
 }
@@ -55,8 +62,8 @@ body{
 @keyframes fadeIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 
 /* ---- Tipografía ---- */
-h1{font-size:clamp(2rem,6vw,3.4rem);color:#FF8C42;text-shadow:2px 2px 0 #FFD93D;margin-bottom:6px;}
-h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
+h1{font-size:clamp(2rem,6vw,3.4rem);color:#8B3CF7;text-shadow:2px 2px 0 #FFD93D;margin-bottom:6px;}
+h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#8B3CF7;margin-bottom:16px;}
 .subtitle{font-size:clamp(1rem,2.8vw,1.3rem);color:#666;margin-bottom:16px;}
 
 /* ---- Botones genéricos ---- */
@@ -67,9 +74,9 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
   cursor:pointer;transition:transform .18s,box-shadow .18s;
   touch-action:manipulation;min-width:110px;
 }
-.btn:hover,.btn:active{transform:scale(1.08);box-shadow:0 6px 18px rgba(0,0,0,.22);}
+.btn:hover,.btn:active{transform:scale(1.08);box-shadow:0 6px 18px rgba(0,0,0,.25);}
 .btn-green {background:#5DB85D;color:#fff;}
-.btn-blue  {background:#4D96FF;color:#fff;}
+.btn-purple{background:#8B3CF7;color:#fff;}
 .btn-orange{background:#FF9800;color:#fff;}
 .btn-gray  {background:#95A5A6;color:#fff;}
 .btn-sound {background:#FFD93D;color:#333;font-size:clamp(1.1rem,3vw,1.7rem);}
@@ -87,12 +94,12 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
   font-size:clamp(.95rem,2.4vw,1.25rem);
   border:none;line-height:1.4;
 }
-.menu-card:nth-child(1){background:linear-gradient(135deg,#f6d365,#fda085);}
+.menu-card:nth-child(1){background:linear-gradient(135deg,#f093fb,#f5576c);}
 .menu-card:nth-child(2){background:linear-gradient(135deg,#4facfe,#00c6ff);}
 .menu-card:nth-child(3){background:linear-gradient(135deg,#43e97b,#38f9d7);}
 .menu-card:nth-child(4){background:linear-gradient(135deg,#fa709a,#fee140);}
 .menu-card:nth-child(5){background:linear-gradient(135deg,#a18cd1,#fbc2eb);}
-.menu-card:hover,.menu-card:active{transform:scale(1.06);box-shadow:0 8px 24px rgba(0,0,0,.22);}
+.menu-card:hover,.menu-card:active{transform:scale(1.06);box-shadow:0 8px 24px rgba(0,0,0,.25);}
 .menu-card .card-emoji{font-size:2.8rem;display:block;margin-bottom:7px;}
 
 /* ---- Estrellas ---- */
@@ -101,31 +108,38 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
 /* ---- Palabra / emoji grandes ---- */
 .big-emoji{
   font-size:clamp(4.5rem,18vw,9rem);display:block;
-  margin:8px auto;animation:bounce .9s ease-in-out infinite alternate;
+  margin:8px auto;animation:levitate 1.8s ease-in-out infinite alternate;
 }
-@keyframes bounce{from{transform:translateY(0);}to{transform:translateY(-12px);}}
-.big-word{font-size:clamp(2.6rem,8.5vw,5rem);font-weight:900;color:#2C3E50;margin:6px 0;}
+@keyframes levitate{
+  from{transform:translateY(0) rotate(-3deg);}
+  to  {transform:translateY(-14px) rotate(3deg);}
+}
+.big-word{
+  font-size:clamp(2.6rem,8.5vw,5rem);font-weight:900;
+  color:#2C3E50;margin:6px 0;
+  text-shadow:1px 1px 0 rgba(139,60,247,.18);
+}
 
 /* ---- Navegación (modo 1 y 3) ---- */
 .nav-row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;flex-wrap:wrap;}
 .progress-dots{display:flex;gap:9px;justify-content:center;margin:10px 0;}
 .dot{width:16px;height:16px;border-radius:50%;background:#DDD;transition:background .3s;}
-.dot.active{background:#5DB85D;}
+.dot.active{background:#8B3CF7;}
 .dot.visited{background:#FFD93D;}
 
 /* ---- Barra de progreso ---- */
 .bar-wrap{width:100%;background:#EEE;border-radius:10px;height:13px;margin:6px 0 14px;overflow:hidden;}
-.bar-fill{height:100%;background:linear-gradient(90deg,#6BCB77,#FFD93D);border-radius:10px;transition:width .4s;}
+.bar-fill{height:100%;background:linear-gradient(90deg,#8B3CF7,#FFD93D);border-radius:10px;transition:width .4s;}
 
 /* ---- Modo 2 opciones ---- */
 .options-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:14px 0;}
 .opt-btn{
-  background:#FFF6E5;border:4px solid #FFE0B2;border-radius:20px;
+  background:#F5F0FF;border:4px solid #D8C8FF;border-radius:20px;
   padding:14px 8px;font-size:clamp(1.1rem,3.2vw,1.7rem);font-weight:700;
   cursor:pointer;transition:background .18s,transform .18s;color:#2C3E50;
   line-height:1.35;
 }
-.opt-btn:hover,.opt-btn:active{background:#FFE0B2;transform:scale(1.05);}
+.opt-btn:hover,.opt-btn:active{background:#D8C8FF;transform:scale(1.05);}
 .opt-btn.correct{background:#ADFFC0;border-color:#27AE60;animation:celebrate .45s;}
 .opt-btn.wrong  {background:#FFD0D0;border-color:#E74C3C;animation:shake .4s;}
 @keyframes celebrate{0%,100%{transform:scale(1);}50%{transform:scale(1.13);}}
@@ -133,13 +147,12 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
 
 /* ---- Modo 3 frase ---- */
 .phrase-box{
-  font-size:clamp(1.6rem,5vw,2.8rem);color:#2C3E50;line-height:1.6;
+  font-size:clamp(1.6rem,5vw,2.8rem);color:#2C3E50;line-height:1.65;
   margin:14px 0;padding:22px 20px;
-  background:#FFFBF2;border-radius:18px;border-left:8px solid #FF8C42;
+  background:#F9F3FF;border-radius:18px;border-left:8px solid #8B3CF7;
   text-align:center;
 }
 .phrase-box .hl{background:#FFE066;border-radius:6px;padding:1px 6px;}
-.phrase-box .speaking{background:#FF6B6B;color:#fff;border-radius:6px;padding:1px 6px;}
 
 /* ---- Modo 4 memoria ---- */
 .memory-grid{
@@ -152,32 +165,31 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
   aspect-ratio:1;border-radius:14px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   font-weight:700;transition:all .32s;border:3px solid transparent;
-  background:linear-gradient(135deg,#f6d365,#fda085);color:#fff;
+  background:linear-gradient(135deg,#6A3093,#a044ff);color:#fff;
   user-select:none;overflow:hidden;padding:2px;
   font-size:clamp(1.4rem,4.5vw,2.2rem);
 }
-.mc.word-card{font-size:clamp(.7rem,1.9vw,1rem);}
-.mc.flipped{background:#fff;border-color:#FF8C42;color:#2C3E50;}
+.mc.word-card{font-size:clamp(.65rem,1.8vw,.95rem);}
+.mc.flipped{background:#F9F3FF;border-color:#8B3CF7;color:#2C3E50;}
 .mc.matched{background:#ADFFC0;border-color:#27AE60;cursor:default;}
 
 /* ---- Modo 5 párrafo ---- */
 .para-box{
   font-size:clamp(1.2rem,3.8vw,2rem);color:#2C3E50;line-height:1.9;
   margin:12px 0;padding:18px 20px;
-  background:#FFFBF2;border-radius:18px;border:3px solid #FFD93D;
+  background:#F9F3FF;border-radius:18px;border:3px solid #8B3CF7;
   text-align:left;
 }
 .kw{
-  font-weight:900;color:#C0392B;cursor:pointer;
-  border-bottom:3px dotted #C0392B;transition:background .2s;
+  font-weight:900;color:#6A3093;cursor:pointer;
+  border-bottom:3px dotted #8B3CF7;transition:background .2s;
 }
 .kw:hover{background:#FFE066;border-radius:4px;}
-.kw.speaking{background:#FF6B6B;color:#fff;border-radius:4px;}
 
 .touch-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:14px 0;}
 .ti{
-  font-size:clamp(2rem,7vw,3.2rem);background:#FFF6E5;
-  border:4px solid #FFE0B2;border-radius:18px;padding:10px 16px;
+  font-size:clamp(2rem,7vw,3.2rem);background:#F5F0FF;
+  border:4px solid #D8C8FF;border-radius:18px;padding:10px 16px;
   cursor:pointer;transition:transform .18s;line-height:1.2;
 }
 .ti span{display:block;font-size:clamp(.65rem,1.8vw,.9rem);font-weight:700;color:#555;margin-top:3px;}
@@ -212,9 +224,9 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
 
 <!-- ========== INICIO ========== -->
 <div id="s-home" class="screen active">
-  <div style="font-size:5rem;">☀️</div>
-  <h1>Mi Rutina<br>de la Mañana</h1>
-  <p class="subtitle">¡Aprende las palabras de cada mañana!</p>
+  <div style="font-size:5rem;">✨</div>
+  <h1>El Cuento<br>Mágico</h1>
+  <p class="subtitle">¡Conoce a los personajes del cuento!</p>
   <div class="stars-bar" id="total-stars">⭐ 0 estrellas ganadas</div>
   <div class="menu-grid">
     <button class="menu-card" onclick="startMode(1)">
@@ -235,12 +247,12 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
     </button>
     <button class="menu-card" onclick="startMode(5)">
       <span class="card-emoji">📜</span>
-      <strong>Modo 5</strong><br>La lectura grande
+      <strong>Modo 5</strong><br>El cuento completo
     </button>
   </div>
   <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
     <a href="index.html"          style="text-decoration:none;"><span class="btn btn-gray"   style="font-size:1rem;padding:10px 18px;">🎒 Útiles</span></a>
-    <a href="cuento-magico.html"  style="text-decoration:none;"><span class="btn btn-gray"   style="font-size:1rem;padding:10px 18px;">✨ Cuento mágico</span></a>
+    <a href="mi-rutina.html"      style="text-decoration:none;"><span class="btn btn-gray"   style="font-size:1rem;padding:10px 18px;">☀️ Mi rutina</span></a>
     <a href="como-me-siento.html" style="text-decoration:none;"><span class="btn btn-orange" style="font-size:1rem;padding:10px 18px;">🥵 Cómo me siento</span></a>
   </div>
 </div>
@@ -255,8 +267,8 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
   <br>
   <button class="btn btn-sound" onclick="m1Speak()">🔊 Escuchar</button>
   <div class="nav-row">
-    <button class="btn btn-gray" onclick="m1Nav(-1)">⬅️ Anterior</button>
-    <button class="btn btn-green" id="m1-next-btn" onclick="m1Nav(1)">Siguiente ➡️</button>
+    <button class="btn btn-gray"   onclick="m1Nav(-1)">⬅️ Anterior</button>
+    <button class="btn btn-green"  id="m1-next-btn" onclick="m1Nav(1)">Siguiente ➡️</button>
   </div>
   <br>
   <button class="btn btn-orange" onclick="goHome()">🏠 Menú</button>
@@ -283,7 +295,7 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
   <div style="font-size:clamp(2.2rem,9vw,4.5rem);margin:6px 0;" id="m3-emoji"></div>
   <button class="btn btn-sound" onclick="m3Speak()">🔊 Escuchar frase</button>
   <div class="nav-row">
-    <button class="btn btn-gray" onclick="m3Nav(-1)">⬅️ Anterior</button>
+    <button class="btn btn-gray"  onclick="m3Nav(-1)">⬅️ Anterior</button>
     <button class="btn btn-green" id="m3-next-btn" onclick="m3Nav(1)">Siguiente ➡️</button>
   </div>
   <br>
@@ -303,12 +315,12 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
 
 <!-- ========== MODO 5 ========== -->
 <div id="s-5" class="screen">
-  <h2>📜 La lectura grande</h2>
+  <h2>📜 El cuento completo</h2>
   <div class="para-box" id="m5-para"></div>
-  <button class="btn btn-sound" onclick="m5Speak()">🔊 Leer en voz alta</button>
+  <button class="btn btn-sound" onclick="m5Speak()">🔊 Escuchar el cuento</button>
   <div style="margin-top:18px;">
     <p style="font-size:clamp(1rem,3vw,1.35rem);font-weight:700;color:#555;">
-      ¿Qué hago cada mañana?<br>¡Tócalo todo! 👆
+      ¿Quiénes aparecen en el cuento?<br>¡Tócalos a todos! 👆
     </p>
     <div class="touch-row" id="m5-items"></div>
   </div>
@@ -330,39 +342,37 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
 
 <script>
 /* =============================================
-   DATOS  (tomados de las fichas del PDF)
-   - word    : palabra de la ficha
-   - emoji   : ícono representativo
-   - phrase  : frase de la ficha
-   - hl      : parte de la frase que se resalta
-               (puede diferir de "word", ej. levanto)
+   DATOS — personajes del cuento mágico
+   word  : palabra de la ficha
+   emoji : ícono representativo
+   phrase: frase completa de la ficha
+   hl    : fragmento exacto a resaltar en la frase
    ============================================= */
 const ITEMS = [
-  { word:'despertar', emoji:'⏰', phrase:'Despertar a mamá.',        hl:'Despertar' },
-  { word:'levantar',  emoji:'🛏️', phrase:'Yo me levanto tarde.',     hl:'levanto'   },
-  { word:'bañar',     emoji:'🛁', phrase:'Meterse a bañar.',         hl:'bañar'     },
-  { word:'vestir',    emoji:'👕', phrase:'Me voy a vestir.',         hl:'vestir'    },
-  { word:'salir',     emoji:'🚪', phrase:'Me gusta salir a jugar.',  hl:'salir'     }
+  { word:'princesa',   emoji:'👸', phrase:'La princesa es valiente.',       hl:'princesa'  },
+  { word:'duende',     emoji:'🧝', phrase:'El duende es curioso.',          hl:'duende'    },
+  { word:'hada',       emoji:'🧚', phrase:'Hada mágica.',                   hl:'Hada'      },
+  { word:'bruja',      emoji:'🧙', phrase:'La bruja es divertida.',         hl:'bruja'     },
+  { word:'superhéroe', emoji:'🦸', phrase:'Los superhéroes son valientes.', hl:'superhéroes'}
 ];
 
-const PARRAFO = 'Por las mañanas, al despertar, mi papi me tiene que levantar. ' +
-                'Me mete a bañar, y me ayuda a vestir. ' +
-                'Y luego corriendo a la escuela podemos salir.';
+const PARRAFO =
+  'Había una vez un superhéroe, a quien una bruja malvada lo había ' +
+  'convertido en duende y lo tenía atrapado. Pero un día llegó a ' +
+  'rescatarlo la dulce princesa vestida de hada.';
 
-// Palabras clave a resaltar dentro del párrafo
-const PARRAFO_KW = ['despertar','levantar','bañar','vestir','salir'];
+const PARRAFO_KW = ['superhéroe','bruja','duende','princesa','hada'];
 
 const CHEERS = ['¡Muy bien! 😊','¡Excelente! 🌟','¡Lo lograste! 🏆','¡Fantástico! 🎊','¡Eres increíble! 🦄'];
 
 /* =============================================
    ESTRELLAS — en memoria; localStorage opcional.
-   (Clave distinta a la del otro juego.)
    ============================================= */
 let totalStars = 0;
-try { const s=localStorage.getItem('_rutina'); if(s) totalStars=parseInt(s)||0; } catch(e){}
+try { const s=localStorage.getItem('_cuento'); if(s) totalStars=parseInt(s)||0; } catch(e){}
 
 function saveStars(){
-  try { localStorage.setItem('_rutina', totalStars); } catch(e){}
+  try { localStorage.setItem('_cuento', totalStars); } catch(e){}
 }
 function refreshStarsUI(){
   document.getElementById('total-stars').textContent = '⭐ ' + totalStars + ' estrellas ganadas';
@@ -445,7 +455,7 @@ function hideFb(id){
   const el=document.getElementById(id);
   if(el){el.className='fb';el.textContent='';}
 }
-function dots(containerId, current, total){
+function buildDots(containerId, current, total){
   let h='';
   for(let i=0;i<total;i++){
     const c = i===current?'active':(i<current?'visited':'');
@@ -461,16 +471,15 @@ let m1i=0, m1done=false;
 
 function initM1(){
   m1i=0; m1done=false;
-  document.getElementById('m1-next-btn').textContent='Siguiente ➡️';
   m1Render();
   setTimeout(()=>m1Speak(),600);
 }
 function m1Render(){
   const it=ITEMS[m1i];
-  document.getElementById('m1-emoji').textContent=it.emoji;
-  document.getElementById('m1-word').textContent=it.word;
-  document.getElementById('m1-bar').style.width=((m1i+1)/ITEMS.length*100)+'%';
-  dots('m1-dots',m1i,ITEMS.length);
+  document.getElementById('m1-emoji').textContent = it.emoji;
+  document.getElementById('m1-word').textContent  = it.word;
+  document.getElementById('m1-bar').style.width   = ((m1i+1)/ITEMS.length*100)+'%';
+  buildDots('m1-dots',m1i,ITEMS.length);
   document.getElementById('m1-next-btn').textContent =
     m1i===ITEMS.length-1 ? '✅ ¡Terminar!' : 'Siguiente ➡️';
 }
@@ -546,14 +555,12 @@ let m3i=0, m3done=false;
 
 function initM3(){
   m3i=0; m3done=false;
-  document.getElementById('m3-next-btn').textContent='Siguiente ➡️';
   m3Render();
   setTimeout(()=>m3Speak(),600);
 }
 function m3Render(){
   const it=ITEMS[m3i];
   document.getElementById('m3-emoji').textContent=it.emoji;
-  // Resaltar la parte clave de la frase (ej. "levanto")
   const hl=it.phrase.replace(
     new RegExp('('+it.hl+')','i'),
     '<span class="hl">$1</span>'
@@ -618,8 +625,7 @@ function m4Flip(idx){
         document.getElementById('m4-pairs').textContent='Parejas: '+m4matched+' / 5';
         speak(ITEMS[ca.id].word);
         fb('m4-fb','¡Pareja encontrada! ⭐',true);
-        m4flipped=[];
-        m4lock=false;
+        m4flipped=[]; m4lock=false;
         if(m4matched===5){
           totalStars+=5; saveStars();
           setTimeout(()=>showEnd(5,4),1600);
@@ -640,23 +646,23 @@ function m4Flip(idx){
 }
 
 /* =============================================
-   MODO 5 — La lectura grande
+   MODO 5 — El cuento completo
    ============================================= */
 let m5touched=new Set();
 
 function initM5(){
   m5touched=new Set();
   hideFb('m5-fb');
-  // Párrafo con palabras clave clicables
   let html=PARRAFO;
   PARRAFO_KW.forEach(kw=>{
+    // Escapar caracteres especiales para regex (ej. "superhéroe")
+    const safe=kw.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
     html=html.replace(
-      new RegExp('('+kw+')','i'),
+      new RegExp('('+safe+')','i'),
       `<span class="kw" onclick="speak('${kw}')">$1</span>`
     );
   });
   document.getElementById('m5-para').innerHTML=html;
-  // Ítems tocables
   let ih='';
   ITEMS.forEach((it,i)=>{
     ih+=`<div class="ti" id="ti${i}" onclick="m5Touch(${i})">
@@ -667,7 +673,7 @@ function initM5(){
 }
 function m5Speak(){
   speak(PARRAFO, ()=>{
-    fb('m5-fb','¡Ahora toca lo que haces cada mañana! 👆',true);
+    fb('m5-fb','¡Ahora toca a cada personaje! 👆',true);
   });
 }
 function m5Touch(idx){
@@ -680,8 +686,8 @@ function m5Touch(idx){
   if(m5touched.size===ITEMS.length){
     setTimeout(()=>{
       totalStars+=4; saveStars();
-      speak('¡Excelente! Ya conoces tu rutina de la mañana.');
-      fb('m5-fb','¡Las encontraste todas! 🎉⭐⭐⭐⭐',true);
+      speak('¡Excelente! Encontraste a todos los personajes del cuento.');
+      fb('m5-fb','¡Los encontraste todos! 🎉⭐⭐⭐⭐',true);
       setTimeout(()=>showEnd(4,5),2800);
     },500);
   }
