@@ -3,17 +3,17 @@
 <head>
 <!--
 ==========================================
-  MI RUTINA DE LA MAÑANA — Juego educativo
+  CÓMO ME SIENTO — Juego educativo
 ==========================================
-Segundo juego para practicar lectura (niño de 5 años).
-Contenido tomado de las fichas: despertar, levantar,
-bañar, vestir, salir + sus frases y el párrafo.
+Tercer juego para practicar lectura (niño de 5 años).
+Contenido tomado de las fichas: hambre, frío, sueño,
+calor, sed + sus frases y el párrafo final.
 
 CÓMO SUBIRLO A GITHUB PAGES:
-  - Sube este archivo "mi-rutina.html" al mismo
-    repositorio donde está "index.html".
+  - Sube este archivo "como-me-siento.html" al mismo
+    repositorio donde están "index.html" y "mi-rutina.html".
   - Con GitHub Pages ya activado, estará en:
-    https://TU-USUARIO.github.io/TU-REPO/mi-rutina.html
+    https://TU-USUARIO.github.io/TU-REPO/como-me-siento.html
 
 PROBAR LOCALMENTE:
   - Abre este archivo directamente en Chrome o Edge
@@ -23,15 +23,15 @@ PROBAR LOCALMENTE:
 -->
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mi Rutina de la Mañana ☀️</title>
+<title>Cómo me siento 🥵🥶</title>
 <style>
 /* ---- Reset y base ---- */
 *{box-sizing:border-box;margin:0;padding:0;}
 
 body{
   font-family:'Segoe UI','Arial Rounded MT Bold',Arial,sans-serif;
-  /* Tema "amanecer" para diferenciarlo del otro juego */
-  background:linear-gradient(135deg,#FFF3C4 0%,#FFD1A1 45%,#A1D2FF 100%);
+  /* Tema "sensaciones" (cálido-frío) para diferenciarlo de los otros juegos */
+  background:linear-gradient(135deg,#FFB199 0%,#FF87AB 45%,#7F7FD5 100%);
   min-height:100vh;
   display:flex;
   align-items:flex-start;
@@ -55,8 +55,8 @@ body{
 @keyframes fadeIn{from{opacity:0;transform:translateY(18px);}to{opacity:1;transform:translateY(0);}}
 
 /* ---- Tipografía ---- */
-h1{font-size:clamp(2rem,6vw,3.4rem);color:#FF8C42;text-shadow:2px 2px 0 #FFD93D;margin-bottom:6px;}
-h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
+h1{font-size:clamp(2rem,6vw,3.4rem);color:#7F7FD5;text-shadow:2px 2px 0 #FFD93D;margin-bottom:6px;}
+h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#FF6A88;margin-bottom:16px;}
 .subtitle{font-size:clamp(1rem,2.8vw,1.3rem);color:#666;margin-bottom:16px;}
 
 /* ---- Botones genéricos ---- */
@@ -87,7 +87,7 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
   font-size:clamp(.95rem,2.4vw,1.25rem);
   border:none;line-height:1.4;
 }
-.menu-card:nth-child(1){background:linear-gradient(135deg,#f6d365,#fda085);}
+.menu-card:nth-child(1){background:linear-gradient(135deg,#FF9A8B,#FF6A88);}
 .menu-card:nth-child(2){background:linear-gradient(135deg,#4facfe,#00c6ff);}
 .menu-card:nth-child(3){background:linear-gradient(135deg,#43e97b,#38f9d7);}
 .menu-card:nth-child(4){background:linear-gradient(135deg,#fa709a,#fee140);}
@@ -120,12 +120,12 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
 /* ---- Modo 2 opciones ---- */
 .options-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:14px 0;}
 .opt-btn{
-  background:#FFF6E5;border:4px solid #FFE0B2;border-radius:20px;
+  background:#FFF0F4;border:4px solid #FFC7D6;border-radius:20px;
   padding:14px 8px;font-size:clamp(1.1rem,3.2vw,1.7rem);font-weight:700;
   cursor:pointer;transition:background .18s,transform .18s;color:#2C3E50;
   line-height:1.35;
 }
-.opt-btn:hover,.opt-btn:active{background:#FFE0B2;transform:scale(1.05);}
+.opt-btn:hover,.opt-btn:active{background:#FFC7D6;transform:scale(1.05);}
 .opt-btn.correct{background:#ADFFC0;border-color:#27AE60;animation:celebrate .45s;}
 .opt-btn.wrong  {background:#FFD0D0;border-color:#E74C3C;animation:shake .4s;}
 @keyframes celebrate{0%,100%{transform:scale(1);}50%{transform:scale(1.13);}}
@@ -135,7 +135,7 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
 .phrase-box{
   font-size:clamp(1.6rem,5vw,2.8rem);color:#2C3E50;line-height:1.6;
   margin:14px 0;padding:22px 20px;
-  background:#FFFBF2;border-radius:18px;border-left:8px solid #FF8C42;
+  background:#FFFBF2;border-radius:18px;border-left:8px solid #7F7FD5;
   text-align:center;
 }
 .phrase-box .hl{background:#FFE066;border-radius:6px;padding:1px 6px;}
@@ -152,12 +152,12 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
   aspect-ratio:1;border-radius:14px;cursor:pointer;
   display:flex;align-items:center;justify-content:center;
   font-weight:700;transition:all .32s;border:3px solid transparent;
-  background:linear-gradient(135deg,#f6d365,#fda085);color:#fff;
+  background:linear-gradient(135deg,#FF9A8B,#7F7FD5);color:#fff;
   user-select:none;overflow:hidden;padding:2px;
   font-size:clamp(1.4rem,4.5vw,2.2rem);
 }
 .mc.word-card{font-size:clamp(.7rem,1.9vw,1rem);}
-.mc.flipped{background:#fff;border-color:#FF8C42;color:#2C3E50;}
+.mc.flipped{background:#fff;border-color:#FF6A88;color:#2C3E50;}
 .mc.matched{background:#ADFFC0;border-color:#27AE60;cursor:default;}
 
 /* ---- Modo 5 párrafo ---- */
@@ -176,8 +176,8 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
 
 .touch-row{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin:14px 0;}
 .ti{
-  font-size:clamp(2rem,7vw,3.2rem);background:#FFF6E5;
-  border:4px solid #FFE0B2;border-radius:18px;padding:10px 16px;
+  font-size:clamp(2rem,7vw,3.2rem);background:#FFF0F4;
+  border:4px solid #FFC7D6;border-radius:18px;padding:10px 16px;
   cursor:pointer;transition:transform .18s;line-height:1.2;
 }
 .ti span{display:block;font-size:clamp(.65rem,1.8vw,.9rem);font-weight:700;color:#555;margin-top:3px;}
@@ -212,9 +212,9 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
 
 <!-- ========== INICIO ========== -->
 <div id="s-home" class="screen active">
-  <div style="font-size:5rem;">☀️</div>
-  <h1>Mi Rutina<br>de la Mañana</h1>
-  <p class="subtitle">¡Aprende las palabras de cada mañana!</p>
+  <div style="font-size:5rem;">🥵🥶</div>
+  <h1>Cómo me<br>siento</h1>
+  <p class="subtitle">¡Aprende las palabras de lo que sentimos!</p>
   <div class="stars-bar" id="total-stars">⭐ 0 estrellas ganadas</div>
   <div class="menu-grid">
     <button class="menu-card" onclick="startMode(1)">
@@ -239,9 +239,9 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
     </button>
   </div>
   <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:8px;">
-    <a href="index.html"          style="text-decoration:none;"><span class="btn btn-gray"   style="font-size:1rem;padding:10px 18px;">🎒 Útiles</span></a>
-    <a href="cuento-magico.html"  style="text-decoration:none;"><span class="btn btn-gray"   style="font-size:1rem;padding:10px 18px;">✨ Cuento mágico</span></a>
-    <a href="como-me-siento.html" style="text-decoration:none;"><span class="btn btn-orange" style="font-size:1rem;padding:10px 18px;">🥵 Cómo me siento</span></a>
+    <a href="index.html"          style="text-decoration:none;"><span class="btn btn-blue"   style="font-size:1rem;padding:10px 18px;">🎒 Útiles</span></a>
+    <a href="mi-rutina.html"      style="text-decoration:none;"><span class="btn btn-orange" style="font-size:1rem;padding:10px 18px;">☀️ Mi rutina</span></a>
+    <a href="cuento-magico.html"  style="text-decoration:none;"><span class="btn"            style="font-size:1rem;padding:10px 18px;background:#8B3CF7;color:#fff;">✨ Cuento mágico</span></a>
   </div>
 </div>
 
@@ -308,7 +308,7 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
   <button class="btn btn-sound" onclick="m5Speak()">🔊 Leer en voz alta</button>
   <div style="margin-top:18px;">
     <p style="font-size:clamp(1rem,3vw,1.35rem);font-weight:700;color:#555;">
-      ¿Qué hago cada mañana?<br>¡Tócalo todo! 👆
+      ¿Qué sentimos los seres humanos?<br>¡Tócalo todo! 👆
     </p>
     <div class="touch-row" id="m5-items"></div>
   </div>
@@ -335,34 +335,32 @@ h2{font-size:clamp(1.4rem,4vw,2.3rem);color:#5A8DEE;margin-bottom:16px;}
    - emoji   : ícono representativo
    - phrase  : frase de la ficha
    - hl      : parte de la frase que se resalta
-               (puede diferir de "word", ej. levanto)
    ============================================= */
 const ITEMS = [
-  { word:'despertar', emoji:'⏰', phrase:'Despertar a mamá.',        hl:'Despertar' },
-  { word:'levantar',  emoji:'🛏️', phrase:'Yo me levanto tarde.',     hl:'levanto'   },
-  { word:'bañar',     emoji:'🛁', phrase:'Meterse a bañar.',         hl:'bañar'     },
-  { word:'vestir',    emoji:'👕', phrase:'Me voy a vestir.',         hl:'vestir'    },
-  { word:'salir',     emoji:'🚪', phrase:'Me gusta salir a jugar.',  hl:'salir'     }
+  { word:'hambre', emoji:'🍽️', phrase:'Yo tengo hambre.',     hl:'hambre' },
+  { word:'frío',   emoji:'🥶', phrase:'Luis tiene frío.',      hl:'frío'   },
+  { word:'sueño',  emoji:'😴', phrase:'Todos tenemos sueño.',  hl:'sueño'  },
+  { word:'calor',  emoji:'🥵', phrase:'Hay mucho calor.',      hl:'calor'  },
+  { word:'sed',    emoji:'🥤', phrase:'Tengo mucha sed.',      hl:'sed'    }
 ];
 
-const PARRAFO = 'Por las mañanas, al despertar, mi papi me tiene que levantar. ' +
-                'Me mete a bañar, y me ayuda a vestir. ' +
-                'Y luego corriendo a la escuela podemos salir.';
+const PARRAFO = 'Todos los seres humanos sentimos calor, frío, sueño, ' +
+                'y nos da hambre y sed. Todo eso nos pasa porque estamos vivos.';
 
 // Palabras clave a resaltar dentro del párrafo
-const PARRAFO_KW = ['despertar','levantar','bañar','vestir','salir'];
+const PARRAFO_KW = ['calor','frío','sueño','hambre','sed'];
 
 const CHEERS = ['¡Muy bien! 😊','¡Excelente! 🌟','¡Lo lograste! 🏆','¡Fantástico! 🎊','¡Eres increíble! 🦄'];
 
 /* =============================================
    ESTRELLAS — en memoria; localStorage opcional.
-   (Clave distinta a la del otro juego.)
+   (Clave distinta a la de los otros juegos.)
    ============================================= */
 let totalStars = 0;
-try { const s=localStorage.getItem('_rutina'); if(s) totalStars=parseInt(s)||0; } catch(e){}
+try { const s=localStorage.getItem('_siento'); if(s) totalStars=parseInt(s)||0; } catch(e){}
 
 function saveStars(){
-  try { localStorage.setItem('_rutina', totalStars); } catch(e){}
+  try { localStorage.setItem('_siento', totalStars); } catch(e){}
 }
 function refreshStarsUI(){
   document.getElementById('total-stars').textContent = '⭐ ' + totalStars + ' estrellas ganadas';
@@ -553,7 +551,7 @@ function initM3(){
 function m3Render(){
   const it=ITEMS[m3i];
   document.getElementById('m3-emoji').textContent=it.emoji;
-  // Resaltar la parte clave de la frase (ej. "levanto")
+  // Resaltar la parte clave de la frase
   const hl=it.phrase.replace(
     new RegExp('('+it.hl+')','i'),
     '<span class="hl">$1</span>'
@@ -667,7 +665,7 @@ function initM5(){
 }
 function m5Speak(){
   speak(PARRAFO, ()=>{
-    fb('m5-fb','¡Ahora toca lo que haces cada mañana! 👆',true);
+    fb('m5-fb','¡Ahora toca lo que sentimos los seres humanos! 👆',true);
   });
 }
 function m5Touch(idx){
@@ -680,7 +678,7 @@ function m5Touch(idx){
   if(m5touched.size===ITEMS.length){
     setTimeout(()=>{
       totalStars+=4; saveStars();
-      speak('¡Excelente! Ya conoces tu rutina de la mañana.');
+      speak('¡Excelente! Ya conoces lo que sentimos los seres humanos.');
       fb('m5-fb','¡Las encontraste todas! 🎉⭐⭐⭐⭐',true);
       setTimeout(()=>showEnd(4,5),2800);
     },500);
